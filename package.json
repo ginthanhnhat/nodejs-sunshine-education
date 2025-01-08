@@ -1,9 +1,10 @@
 {
   "name": "blog",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon src/index.js",
+    "watch": "sass --watch src/resources/scss/app.scss src/public/css/app.css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,11 +17,13 @@
     "url": "https://github.com/gintrandev/nodejs_blog/issues"
   },
   "homepage": "https://github.com/gintrandev/nodejs_blog#readme",
-  "description": "",
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "express-handlebars": "^8.0.1",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.4"
-  }
+  },
+  "description": ""
 }
