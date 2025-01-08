@@ -36,3 +36,4 @@
     })
 ```
 
+- SCSS: tiền xử lý CSS khi run thì sẽ compine ra app.css và app.css này được link vào html
