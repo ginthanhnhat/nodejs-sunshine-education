@@ -120,3 +120,47 @@ npm i prettier lint-staged husky --save-dev
 - Routes: định nghĩa tuyến cho trang web `Ex: userRoute, productRoute, ...`
 - Controller: thực thi các logic, nên chia theo đối tượng, chức năng. `Ex: userController, productController, ...`
 
+## [MVC] Model
+- Install mongoose: 
+    ```sh
+    npm install mongoose
+    ```
+- Connect to DB:
+    ```js
+    const mongoose = require('mongoose');
+
+    async function connect() {
+        try {
+            await mongoose.connect('mongodb://localhost:27017/sunshine_education_dev')
+            console.log('Database connected!')
+        } catch (error) {
+            console.log('Database failed!', error)
+        }
+    }
+
+    module.exports = { connect }
+    ```
+- Create model: 
+    ```js
+    const mongoose = require('mongoose')
+    const Schema = mongoose.Schema
+
+    const Course = new Schema({
+        name: { type: String, maxLength: 255},
+        description: { type: String, maxLength: 1000},
+        image: { type: String, maxLength: 255},
+        createAt: { type: Date, default: Date.now},
+        updateAt: { type: Date, default: Date.now},
+    })
+
+    module.exports = mongoose.model('Course', Course);
+    ```
+
+## [CRUD] Read from DB
+    ```js
+    const Course = require('../models/Course')
+
+    await Course.find({})
+    ```
+
+## Course detail page
