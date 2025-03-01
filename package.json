@@ -6,7 +6,8 @@
     "format": "lint-staged",
     "start": "nodemon --inspect src/index.js",
     "watch": "sass --watch src/resources/scss/app.scss src/public/css/app.css",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
@@ -18,17 +19,9 @@
     "url": "https://github.com/gintrandev/nodejs_blog/issues"
   },
   "homepage": "https://github.com/gintrandev/nodejs_blog#readme",
-
   "lint-staged": {
-    "src/**/*.{js,json,scss,jsx}": "prettier --single-quote --trailing-comma all --tab-width 4 --write"
+    "src/**/*.{js,json,scss,jsx}": "prettier --single-quote --trailing-comma all --tab-width 4 --print-width 80 --bracket-spacing true --write"
   },
-
-  "husky": {
-    "hooks" : {
-      "pre-commit": "lint-staged"
-    }
-  },
-
   "dependencies": {
     "express": "^4.19.2",
     "express-handlebars": "^8.0.1",
