@@ -97,15 +97,16 @@
 
     - husky: truớc khi commit or push code lên git thì chạy lệnh 
         ```json
-        "husky": {
-            "hooks" : {
-            "pre-commit": "lint-staged" // lúc này gọi lại lint-staged -> gọi lại format (npm run format)
-            }
-        },
-
+        npx husky init
+        // vào file pre-commit ở husky thêm vào lệnh `npx lint-staged`
         // Lúc này có sẽ tự động chạy lệnh format trước khi commit code cho nên có thế xóa "format" : "lint-staged" ở trên
         ```
-
+    - Sau khi hoàn thành thì trước khi ta commit code lên git thì code sẽ được format
+    ```json
+    "lint-staged": {
+        "src/**/*.{js,json,scss,jsx}": "prettier --single-quote --trailing-comma all --tab-width 4 --print-width 80 --bracket-spacing true --write"
+    },
+    ```
 ```
 npm i prettier lint-staged husky --save-dev
 ```
