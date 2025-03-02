@@ -164,3 +164,13 @@ npm i prettier lint-staged husky --save-dev
     ```
 
 ## Course detail page
+- Khi click vào `name` or `img` thì có thẻ `a` link đến `/courses/:slug`, từ controller ta có thể gọi đến slug này 
+- Từ controller gọi tới model lấy course từ database `Model.findOne(slug)`
+` Truyền course sang trang show.hbs bằng:
+    ```js
+        res.render('courses/show', {
+            course: mongooseToObject(await Course.findOne({slug: req.params.slug}))
+        });
+    ```
+
+## [CRUD] Create new course

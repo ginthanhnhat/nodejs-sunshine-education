@@ -5,7 +5,7 @@ class SiteController {
     async index(req, res, next) {
         try {
             res.render('home', {
-                // await trả về một courses đổi thành Object thường rồi truyền vào home với biến coursescourses
+                // await trả về một courses đổi thành Object thường rồi truyền vào home với biến courses
                 courses: multipleMongooseToObject(await Course.find({})) 
             });
         } catch (error) {

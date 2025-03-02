@@ -25,7 +25,9 @@
     "express": "^4.19.2",
     "express-handlebars": "^8.0.1",
     "mongoose": "^8.11.0",
-    "morgan": "^1.10.0"
+    "mongoose-slug-generator": "^1.0.4",
+    "morgan": "^1.10.0",
+    "slugify": "^1.6.6"
   },
   "devDependencies": {
     "husky": "^9.1.7",
