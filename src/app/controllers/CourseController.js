@@ -32,7 +32,7 @@ class CourseController {
             const course = await new Course(req.body)
             course.save()
             // res.json({message: "Add course successfull!", course})
-            res.redirect('/');
+            res.redirect('/me/stored/courses');
         } catch (error) {
             next(error)
             console.error(error);
@@ -62,11 +62,33 @@ class CourseController {
         }
     }
 
-    // [DELETE] /courses/:id
+    // [DELETE soft] /courses/:id
     async delete(req, res, next) {
         try {
-            await Course.findByIdAndDelete(req.params.id)
+            await Course.delete({_id: req.params.id})
             res.redirect('/me/stored/courses');
+        } catch (error) {
+            next()
+            console.error(error);
+        }
+    }
+
+    // [PATCH] /courses/:id/restore
+    async restore(req, res, next) {
+        try {
+            await Course.restore({_id: req.params.id})
+            res.redirect('/me/trash/courses')
+        } catch (error) {
+            next()
+            console.error(error);
+        }
+    }
+
+    // [DELETE foce] /courses/:id/fpce
+    async forceDelete(req, res, next) {
+        try {
+            await Course.findByIdAndDelete({_id: req.params.id})
+            res.redirect('/me/trash/courses');
         } catch (error) {
             next()
             console.error(error);

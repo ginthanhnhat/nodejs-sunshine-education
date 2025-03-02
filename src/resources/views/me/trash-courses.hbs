@@ -1,7 +1,7 @@
 <div class="mt-4">
     <div>
-      <h2>Courses List</h2>
-      <a href="/me/trash/courses">Trash Courses List</a>
+      <h2>Trash Courses List</h2>
+      <a href="/me/stored/courses">Courses List</a>
     </div>
 
     <table class="table table-striped">
@@ -24,16 +24,16 @@
                     <td><img src="{{this.image}}" class="card-img-top" alt="..."></td>
                     <td>{{this.createAt}}</td>
                     <td>
-                        <a class="btn btn-link" href="/courses/{{this._id}}/edit">Edit</a>
-                        <a class="btn btn-link" data-id="{{this._id}}" data-name="{{this.name}}" data-bs-toggle="modal" data-bs-target="#deleteModel">Delete</a>
+                        <a class="btn btn-link btn-restore" href="" data-id="{{this._id}}">Restore</a>
+                        <a class="btn btn-link" data-id="{{this._id}}" data-name="{{this.name}}" data-bs-toggle="modal" data-bs-target="#deleteModel">Remove</a>
                     </td>
                 </tr>
 
                 {{else}}
                 <tr>
                   <td class="text-center" colspan="6">
-                    NO COURSE
-                    <a href="/courses/create">Add now!</a>
+                    NO Course In Trash
+                    <a href="/me/stored/courses">Courses List</a>
                   </td>
                 </tr>
 
@@ -64,35 +64,43 @@
   </div>
 </div>
 
-{{!-- Delete hidden form --}}
-<form id="delete-course-form" method="POST"></form>
+{{!-- Delete form submit--}}
+<form id="force-delete-course-form" method="POST"></form>
+<form id="restore-course-form" method="POST"></form>
 
 <script>
     const deleteModel = document.getElementById('deleteModel')
-    var deleteCourseForm = document.getElementById("delete-course-form")
+    var forceDeleteCourseForm = document.getElementById("force-delete-course-form")
+    var restoreCourseForm = document.getElementById("restore-course-form")
     var btnDeleteCourse = document.getElementById("btn-delete-course")
+    var btnRestore = document.querySelectorAll('.btn-restore');
 
     var courseId
 
     deleteModel.addEventListener('show.bs.modal', function (event) {
-        // Button that triggered the modal
+
         const button = event.relatedTarget
-        // Extract info from data-bs-* attributes
+
         courseId = button.getAttribute('data-id')
         const name = button.getAttribute('data-name')
 
-        // If necessary, you could initiate an AJAX request here
-        // and then do the updating in a callback.
-        //
-        // Update the modal's content.
-        // const modalTitle = deleteModel.querySelector('.modal-title')
         const modalBody = deleteModel.querySelector('.modal-body')
 
         modalBody.textContent = 'Delete \"' + name + '\"'
     })
 
     btnDeleteCourse.onclick = function () {
-        deleteCourseForm.setAttribute('action', '/courses/' + courseId + '?_method=DELETE')
-        deleteCourseForm.submit()
+      forceDeleteCourseForm.setAttribute('action', '/courses/' + courseId + '/force?_method=DELETE')
+      forceDeleteCourseForm.submit()
     }
+
+    // Restore button click
+    btnRestore.forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          var id = this.getAttribute('data-id');
+          restoreCourseForm.setAttribute('action', '/courses/' + id +  '/restore?_method=PATCH')
+          restoreCourseForm.submit()
+      });
+  });
 </script>

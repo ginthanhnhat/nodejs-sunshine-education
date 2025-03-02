@@ -181,3 +181,10 @@ npm i prettier lint-staged husky --save-dev
 
 ## [CRUD] Delete course
 - Lấy Id của course từ btn delete rồi truyền vào action form rồi call api delete, use `findByIdAndDelete`
+
+## Soft delete
+- Dùng thư viện `mongoose-delete`
+- Delete (soft): thêm trường `delete: true` vào data, dùng `Model.delete()`
+- Restore: sửa data thành `delete: false`, dùng `Model.restore()`
+- Force delete: xóa khỏi DB, dùng `Model.findByIdAndDelete()`
+- Dùng `find()` để lấy danh sách courses chưa bị xóa (soft) và dùng `Course.findWithDeleted({deleted: true})` để lấy danh sách courses đã bị xóa
