@@ -174,3 +174,9 @@ npm i prettier lint-staged husky --save-dev
     ```
 
 ## [CRUD] Create new course
+- Tạo page crete là một from, method là `post`, action đến `/courses/store`, tại store sẽ lấy req.body và tạo một `Course` mới add vào db
+
+## [CRUD] Update course
+- Tạo page manage course hiển thị danh sách các courses, khi ấn vào course sẽ chuyển hướng đến `manage/:id/edit` trang này cũng sẽ là một form tương tự như create nhưng value được điền sẵn, sau đó ta chỉnh sửa gì đó và ấn vào submit thì sẽ tìm ở db `findByIdAndUpdate()`
+
+## [CRUD] Delete course

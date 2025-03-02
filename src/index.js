@@ -2,6 +2,7 @@ const path = require('path');
 const morgan = require('morgan');
 const { engine } = require('express-handlebars');
 const express = require('express');
+const methodOverride = require('method-override')
 
 const db = require('./config/db')
 
@@ -36,6 +37,8 @@ app.engine(
 app.set('view engine', 'hbs');
 
 app.set('views', path.join(__dirname,'resources', 'views'));
+
+app.use(methodOverride('_method'))
 
 // Route
 

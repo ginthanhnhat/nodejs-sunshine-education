@@ -1,0 +1,31 @@
+<div class="mt-4">
+    <h2>Courses List</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Course Name</th>
+                <th scope="col">Course Description</th>
+                <th scope="col">Course Image</th>
+                <th scope="col">Create At</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each courses}}
+                <tr>
+                    <th scope="row">{{@index}}</th>
+                    <td>{{this.name}}</td>
+                    <td>{{this.description}}</td>
+                    <td><img src="{{this.image}}" class="card-img-top" alt="..."></td>
+                    <td>{{this.createAt}}</td>
+                    <td>
+                        <a class="btn btn-link" href="/courses/{{this._id}}/edit">Edit</a>
+                        <a class="btn btn-link" href="/courses/{{this._id}}">Remove</a>
+                    </td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

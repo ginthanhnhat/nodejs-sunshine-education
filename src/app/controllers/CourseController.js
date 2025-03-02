@@ -38,6 +38,29 @@ class CourseController {
             console.error(error);
         }
     }
+
+    // [GET] /courses/:id/edit
+    async edit(req, res, next) {
+        try {
+            res.render('courses/edit', {
+                course: mongooseToObject(await Course.findById(req.params.id))
+            })
+        } catch (error) {
+            next()
+            console.error(error);
+        }
+    }
+
+    // [PUT] /courses/:id
+    async update(req, res, next) {
+        try {
+            await Course.findByIdAndUpdate(req.params.id ,req.body)
+            res.redirect('/me/stored/courses');
+        } catch (error) {
+            next()
+            console.error(error);
+        }
+    }
 }
 
 module.exports = new CourseController();
