@@ -22,10 +22,65 @@
                     <td>{{this.createAt}}</td>
                     <td>
                         <a class="btn btn-link" href="/courses/{{this._id}}/edit">Edit</a>
-                        <a class="btn btn-link" href="/courses/{{this._id}}">Remove</a>
+                        <a class="btn btn-link" data-id="{{this._id}}" data-name="{{this.name}}" data-bs-toggle="modal" data-bs-target="#deleteModel">Remove</a>
                     </td>
                 </tr>
             {{/each}}
         </tbody>
     </table>
 </div>
+
+{{!-- Confirm delete course --}}
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Course?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+        You will not be able to recover it!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+        <button id="btn-delete-course" type="button" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{!-- Delete hidden form --}}
+<form id="delete-course-form" method="POST"></form>
+
+<script>
+    const deleteModel = document.getElementById('deleteModel')
+    var deleteCourseForm = document.getElementById("delete-course-form")
+    var btnDeleteCourse = document.getElementById("btn-delete-course")
+
+    var courseId
+
+    deleteModel.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        const button = event.relatedTarget
+        // Extract info from data-bs-* attributes
+        courseId = button.getAttribute('data-id')
+        const name = button.getAttribute('data-name')
+
+        // If necessary, you could initiate an AJAX request here
+        // and then do the updating in a callback.
+        //
+        // Update the modal's content.
+        // const modalTitle = deleteModel.querySelector('.modal-title')
+        const modalBody = deleteModel.querySelector('.modal-body')
+
+        modalBody.textContent = 'Delete \"' + name + '\"'
+    })
+
+    btnDeleteCourse.onclick = function () {
+        deleteCourseForm.setAttribute('action', '/courses/' + courseId + '?_method=DELETE')
+        deleteCourseForm.submit()
+    }
+</script>
