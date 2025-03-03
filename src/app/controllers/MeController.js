@@ -6,19 +6,9 @@ class MeController {
     async storedCourses(req, res, next) {
         try {
 
-            let coursesQuery = Course.find({});
-
-            if (Object.prototype.hasOwnProperty.call(req.query, '_sort')) {
-                coursesQuery = coursesQuery.sort({ 
-                    [req.query.column] : req.query.type
-                });
-            }
-
-            const courses = await coursesQuery;
-
             res.render('me/stored-courses', {
                 countDeleted: await Course.countDocumentsWithDeleted({deleted: true}),
-                courses: multipleMongooseToObject(courses)
+                courses: multipleMongooseToObject(await Course.find({}).sortable(req))
             });
 
         } catch (error) {
@@ -32,7 +22,7 @@ class MeController {
         try {
             // res.json(await Course.findDeleted())
             res.render('me/trash-courses', {
-                courses: multipleMongooseToObject(await Course.findWithDeleted({deleted: true}))
+                courses: multipleMongooseToObject(await Course.findWithDeleted({deleted: true}).sortable(req))
             });
         } catch (error) {
             next()

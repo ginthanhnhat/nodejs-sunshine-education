@@ -25,11 +25,17 @@
         <thead>
             <tr>
                 <th scope="col">Select</th>
-                <th scope="col">#</th>
-                <th scope="col">Course Name</th>
+                <th scope="col">Index</th>
+                <th scope="col">
+                  Course Name
+                  {{{ sortable 'name' _sort}}}
+                </th>
                 <th scope="col">Course Description</th>
                 <th scope="col">Course Image</th>
-                <th scope="col">Deleted At</th>
+                <th scope="col">
+                  Deleted At
+                  {{{ sortable 'deletedAt' _sort}}}
+                </th>
                 <th scope="col">Action</th>
             </tr>
         </thead>

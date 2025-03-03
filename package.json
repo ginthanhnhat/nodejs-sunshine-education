@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "src/index.js",
   "scripts": {
-    "format" : "lint-staged",
+    "format": "lint-staged",
     "start": "nodemon --inspect src/index.js",
     "watch": "sass --watch src/resources/scss/app.scss src/public/css/app.css",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -28,6 +28,7 @@
     "method-override": "^3.0.0",
     "mongoose": "^8.11.0",
     "mongoose-delete": "^1.0.2",
+    "mongoose-sequence": "^6.0.1",
     "mongoose-slug-generator": "^1.0.4",
     "morgan": "^1.10.0",
     "slugify": "^1.6.6"
