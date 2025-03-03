@@ -10,6 +10,7 @@ router.get('/:slug', courseController.show)
 router.get('/:id/edit', courseController.edit)
 
 router.post('/store', courseController.store)
+router.post('/handle-form-actions',courseController.handleFormActions)
 
 router.put('/:id', courseController.update)
 router.patch('/:id/restore', courseController.restore)

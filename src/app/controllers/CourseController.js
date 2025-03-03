@@ -66,7 +66,7 @@ class CourseController {
     async delete(req, res, next) {
         try {
             await Course.delete({_id: req.params.id})
-            res.redirect('/me/stored/courses');
+            res.redirect('/me/stored/courses')
         } catch (error) {
             next()
             console.error(error);
@@ -84,7 +84,7 @@ class CourseController {
         }
     }
 
-    // [DELETE foce] /courses/:id/fpce
+    // [DELETE force] /courses/:id/fpce
     async forceDelete(req, res, next) {
         try {
             await Course.findByIdAndDelete({_id: req.params.id})
@@ -94,6 +94,30 @@ class CourseController {
             console.error(error);
         }
     }
+
+    // [POST] /courses/handle-form-actions
+    async handleFormActions(req, res, next) {
+        try {
+            switch(req.body.action) {
+                case 'delete':
+                    try {
+                        await Course.delete({_id: { $in: req.body.courseIds }})
+                        res.redirect('/me/stored/courses')
+                    } catch (error) {
+                        next()
+                        console.error(error);
+                    }
+                    break;
+                default:
+                    res.json('no action')
+            }
+            
+        } catch (error) {
+            next()
+            console.error(error);
+        }
+    }
+    
 }
 
 module.exports = new CourseController();

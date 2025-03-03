@@ -188,3 +188,6 @@ npm i prettier lint-staged husky --save-dev
 - Restore: sửa data thành `delete: false`, dùng `Model.restore()`
 - Force delete: xóa khỏi DB, dùng `Model.findByIdAndDelete()`
 - Dùng `find()` để lấy danh sách courses chưa bị xóa (soft) và dùng `Course.findWithDeleted({deleted: true})` để lấy danh sách courses đã bị xóa
+
+## Select all with checkbox
+- tạo check box trước mỗi khóa học, select all thì chọn tất cả checkbox
