@@ -2,11 +2,17 @@
   <div class="container">
     <a class="navbar-brand" href="/">SunShine Education</a>
 
+    <div class="input-group group-sm ip-sm">
+      <input type="text" class="form-control" placeholder="Search course" aria-label="Recipient's username" aria-describedby="button-addon2">
+      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+    </div>
+
     <div class="profile">
       <div class="profile-toggle">
         <img class="profile-img" src="https://avatars.githubusercontent.com/u/94516519?v=4" alt="Profile Image">
         <span>Gin Admin</span>
-        <img class="dr-icon" src="/img/dropdown_icon.png" alt="">
+          <div class="icon-down"><i class="fa-solid fa-caret-down"></i></div>
+          <div class="icon-up"><i class="fa-solid fa-caret-up"></i></div>
       </div>
       <div class="profile-dropdown" data-bs-theme="dark">
         <a class="pd-item nav-link" href="/courses/create">Create Courses</a>
@@ -20,18 +26,32 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const profile = document.querySelector(".profile");
-    const toggle = document.querySelector(".profile-toggle");
+      const profile = document.querySelector(".profile");
+      const toggle = document.querySelector(".profile-toggle");
+      const iconUp = document.querySelector(".icon-up");
+      const iconDown = document.querySelector(".icon-down");
 
-    toggle.addEventListener("click", function (event) {
-        profile.classList.toggle("active");
-        event.stopPropagation();
-    });
+      toggle.addEventListener("click", function (event) {
+          profile.classList.toggle("active");
 
-    document.addEventListener("click", function (event) {
-        if (!profile.contains(event.target)) {
-            profile.classList.remove("active");
-        }
-    });
-  }); 
+          // Kiểm tra trạng thái và thay đổi hiển thị của icon
+          if (profile.classList.contains("active")) {
+              iconUp.style.display = "block";
+              iconDown.style.display = "none";
+          } else {
+              iconUp.style.display = "none";
+              iconDown.style.display = "block";
+          }
+
+          event.stopPropagation();
+      });
+
+      document.addEventListener("click", function (event) {
+          if (!profile.contains(event.target)) {
+              profile.classList.remove("active");
+              iconUp.style.display = "none";
+              iconDown.style.display = "block";
+          }
+      });
+  });
 </script>

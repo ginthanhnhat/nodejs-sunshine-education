@@ -3,14 +3,9 @@ const morgan = require('morgan');
 const { engine } = require('express-handlebars');
 const express = require('express');
 const methodOverride = require('method-override')
+const sortMiddleware = require('./app/middlewares/sortMiddleware.x');
 
 const db = require('./config/db')
-
-const Handlebars = require("handlebars");
-Handlebars.registerHelper("sum", function (a, b) {
-  return a + b;
-});
-
 
 // Connect to DB
 db.connect()
@@ -29,6 +24,8 @@ app.use(express.urlencoded({ extended: true }));
 // Middleware để xử lý JSON (không cần thiết cho form HTML nhưng tốt nếu dùng API)
 app.use(express.json());
 
+app.use(sortMiddleware)
+
 // HTTP logger
 // app.use(morgan("combined"));
 
@@ -37,6 +34,31 @@ app.engine(
     'hbs',
     engine({
         extname: '.hbs',
+        helpers: {
+            sum: (a, b) => a+b,
+            sortable: (field, sort) => {
+                const sortType = field === sort.column ? sort.type : 'default'
+
+                const icons = {
+                    default: 'fa-solid fa-sort',
+                    asc: 'fa-solid fa-arrow-down-a-z',
+                    desc: 'fa-solid fa-arrow-up-a-z',
+                }
+
+                const types = {
+                    default: 'desc',
+                    asc: 'desc',
+                    desc: 'asc',
+                }
+
+                const icon = icons[sortType]
+                const type = types[sortType]
+
+                return `<a href="?_sort&column=${field}&type=${type}"">
+                            <i class="${icon}"></i>
+                        </a>`
+            }
+        }
     }),
 );
 
@@ -50,10 +72,8 @@ app.get('/middleware',
     //middleware 1
     (req, res, next) => {
         if(['2'].includes(req.query.num)) {
-
-            
             req.query.tenNum = '20'
-                    return next()
+                return next()
         } 
         res.json( {messages: "not 2"} );
     }, 
