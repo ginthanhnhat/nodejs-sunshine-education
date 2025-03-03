@@ -191,3 +191,30 @@ npm i prettier lint-staged husky --save-dev
 
 ## Select all with checkbox
 - tạo check box trước mỗi khóa học, select all thì chọn tất cả checkbox
+
+## MiddleWare 
+- Phần mềm trung gian 
+    ```js
+        app.get('/middleware', 
+        //middleware 1
+        (req, res, next) => {
+            if(['2'].includes(req.query.num)) {
+                req.query.tenNum = '20'
+                return next()
+            } 
+            res.json( {messages: "not 2"} );
+        }, 
+        // middleware 2
+        (req, res, next) => {
+            res.json( {
+                messages: "after 2*10", 
+                tenNum: req.query.tenNum
+            } );
+        })
+    ```
+    - Trung gian giữa client và server, khi gửi `num=value` thì mdw 1 sẽ kiểm tra xem value có = '2' hay không? nếu không thì sẽ return msg: `not 2` nếu = '2' thì sẽ gửi tenNum = '20' vào mdw 2 và mdw 2 sẽ return về tenNum
+- Ví dụ thực tế trong `Ecommerce`:
+    ```js
+        productRouter.post('/remove', adminAuth, removeProduct)
+    ```
+    - kiểm tra `adminAuth` nếu đúng thì mới được `removeProduct` (trong `adminAuth` có next())

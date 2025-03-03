@@ -16,7 +16,7 @@
           <option value="delete">Delete</option>
         </select>
 
-        <button class="btn btn-primary btn-sm btn-check-all-submit disabled">Action</button>
+        <button class="btn btn-primary btn-sm btn-check-all-submit" disabled>Action</button>
       </div>
     </div>
 
@@ -97,6 +97,7 @@
     var checkboxAll = $('#checkbox-all')
     var courseItemCheckbox = $('input[name="courseIds[]"]')
     var containerForm = document.forms['container-form']
+    // var containerForm = $('form["container-form"]')
     var btnCheckAllSubmit = $('.btn-check-all-submit')
     
     var courseId
@@ -148,21 +149,21 @@
       }
     })
 
-    btnCheckAllSubmit.on('submit', function(e) {
-      var isSubmittable = !$(this).hasClass('disabled')
+    // containerForm.on('submit', function(e) {
+      // var isSubmittable = !btnCheckAllSubmit.hasClass('disabled')
       
-      if(!isSubmittable) {
-        e.preventDefault()
-      }
-    })
+      // if(!isSubmittable) {
+        // e.preventDefault()
+      // }
+    // })
 
     // Re-render check all submit btn
     function renderCheckAllSubmitBtn() {
       var checkedCount = $('input[name="courseIds[]"]:checked').length
       if(checkedCount) {
-        btnCheckAllSubmit.removeClass('disabled')
+        btnCheckAllSubmit.attr('disabled', false)
       } else {
-        btnCheckAllSubmit.addClass('disabled')
+        btnCheckAllSubmit.attr('disabled', true)
       }
     }
 

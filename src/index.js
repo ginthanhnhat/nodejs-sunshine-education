@@ -46,6 +46,24 @@ app.set('views', path.join(__dirname,'resources', 'views'));
 
 app.use(methodOverride('_method'))
 
+app.get('/middleware', 
+    //middleware 1
+    (req, res, next) => {
+        if(['2'].includes(req.query.num)) {
+
+            
+            req.query.tenNum = '20'
+                    return next()
+        } 
+        res.json( {messages: "not 2"} );
+    }, 
+    // middleware 2
+    (req, res, next) => {
+        res.json( {
+            messages: "after 2*10", 
+            tenNum: req.query.tenNum
+        } );
+    })
 // Route
 
 route(app);
