@@ -1,7 +1,7 @@
 <div class="mt-4">
     <div>
       <h2>Courses List</h2>
-      <a href="/me/trash/courses">Trash Courses List</a>
+      <a href="/me/trash/courses">Trash Courses List ({{countDeleted}})</a>
     </div>
 
     <table class="table table-striped">
@@ -18,7 +18,7 @@
         <tbody>
             {{#each courses}}
                 <tr>
-                    <th scope="row">{{@index}}</th>
+                    <th scope="row">{{sum @index 1}}</th>
                     <td>{{this.name}}</td>
                     <td>{{this.description}}</td>
                     <td><img src="{{this.image}}" class="card-img-top" alt="..."></td>

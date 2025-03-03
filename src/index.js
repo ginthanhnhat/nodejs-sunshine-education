@@ -6,6 +6,12 @@ const methodOverride = require('method-override')
 
 const db = require('./config/db')
 
+const Handlebars = require("handlebars");
+Handlebars.registerHelper("sum", function (a, b) {
+  return a + b;
+});
+
+
 // Connect to DB
 db.connect()
 
