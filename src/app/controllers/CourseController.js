@@ -32,7 +32,7 @@ class CourseController {
             const course = await new Course(req.body)
             course.save()
             // res.json({message: "Add course successfull!", course})
-            res.redirect('/me/stored/courses');
+            res.redirect('/courses/create');
         } catch (error) {
             next(error)
             console.error(error);
@@ -103,6 +103,26 @@ class CourseController {
                     try {
                         await Course.delete({_id: { $in: req.body.courseIds }})
                         res.redirect('/me/stored/courses')
+                    } catch (error) {
+                        next()
+                        console.error(error);
+                    }
+                    break;
+                
+                case'restore':
+                    try {
+                        await Course.restore({_id: { $in: req.body.courseIds }})
+                        res.redirect('/me/trash/courses')
+                    } catch (error) {
+                        next()
+                        console.error(error);
+                    }
+                    break;
+
+                case 'remove':
+                    try {
+                        await Course.deleteMany({_id: { $in: req.body.courseIds }})
+                        res.redirect('/me/trash/courses');
                     } catch (error) {
                         next()
                         console.error(error);
